@@ -1,0 +1,13 @@
+# Local S3-compatible server (validates SigV4, so presigned URLs are really checked).
+# MinIO images were not pullable from this network; RustFS speaks the same S3 API.
+services:
+  s3:
+    image: rustfs/rustfs:latest
+    command: /data
+    ports:
+      - "9000:9000" # S3 API
+      - "9001:9001" # web console
+    environment:
+      RUSTFS_ACCESS_KEY: localadmin
+      RUSTFS_SECRET_KEY: localadmin
+      RUSTFS_CONSOLE_ENABLE: "true"
